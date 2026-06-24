@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Belajar Bahasa Asing</title>
+  <style>
+    /* ===== CSS VARIABLES ===== */
+    :root {
+      --bg: #f8f9fa;
+      --card-bg: #fff;
+      --text: #222;
+      --text-secondary: #555;
+      --border: #e0e0e0;
+      --shadow: rgba(0,0,0,0.08);
+      --shadow-hover: rgba(0,0,0,0.15);
+      --success: #4CAF50;
+      --warning: #FF9800;
+      --danger: #f44336;
+      --info: #2196F3;
+      --primary: #667eea;
+      --primary-dark: #5a67d8;
+      --gradient-start: #667eea;
+      --gradient-end: #764ba2;
+      --nav-bg: #1a1a2e;
+    }
+
+    /* ===== DARK MODE ===== */
+    html.dark {
+      --bg: #0f0f1a;
+      --card-bg: #1a1a2e;
+      --text: #e0e0e0;
+      --text-secondary: #aaa;
+      --border: #333;
+      --shadow: rgba(0,0,0,0.3);
+      --shadow-hover: rgba(0,0,0,0.5);
+      --nav-bg: #111;
+    }
+
+    /* ===== RESET & BASE ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6; color: var(--text); background: var(--bg);
+      transition: background 0.3s, color 0.3s;
+    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ===== HERO SECTION ===== */
+    .hero {
+      background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+      color: white; text-align: center; padding: 80px 20px 60px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      animation: pulse 8s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+    }
+    .hero h1 {
+      font-size: 3rem; margin-bottom: 15px; position: relative;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    .hero p {
+      font-size: 1.2rem; opacity: 0.9; max-width: 600px;
+      margin: 0 auto 30px; position: relative;
+    }
+    .hero-flags {
+      font-size: 3rem; margin-bottom: 20px; position: relative;
+      letter-spacing: 15px;
+    }
+    .hero-actions {
+      display: flex; gap: 15px; justify-content: center; position: relative;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 12px 28px; border: none; border-radius: 8px; cursor: pointer;
+      font-size: 1rem; font-weight: 600; transition: all 0.3s;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-hero {
+      background: rgba(255,255,255,0.2); color: white;
+      border: 2px solid rgba(255,255,255,0.4);
+      backdrop-filter: blur(10px);
+    }
+    .btn-hero:hover {
+      background: rgba(255,255,255,0.35);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    }
+    .btn-primary {
+      background: var(--primary); color: white;
+    }
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    /* ===== DARK MODE TOGGLE ===== */
+    .dark-mode-toggle {
+      position: fixed; top: 20px; right: 20px; z-index: 1000;
+      background: var(--card-bg); border: 2px solid var(--border);
+      border-radius: 50%; width: 45px; height: 45px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 1.3rem; transition: all 0.3s;
+      box-shadow: 0 2px 10px var(--shadow);
+    }
+    .dark-mode-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 15px var(--shadow-hover);
+    }
+
+    /* ===== LANGUAGES SECTION ===== */
+    .languages-section {
+      padding: 60px 0;
+    }
+    .section-title {
+      text-align: center; font-size: 2rem; margin-bottom: 15px;
+      color: var(--text);
+    }
+    .section-subtitle {
+      text-align: center; color: var(--text-secondary);
+      margin-bottom: 40px; font-size: 1.05rem;
+    }
+    .language-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+    .language-card {
+      background: var(--card-bg); border-radius: 16px; padding: 30px;
+      box-shadow: 0 4px 20px var(--shadow); transition: all 0.3s;
+      position: relative; overflow: hidden; cursor: pointer;
+      border: 2px solid transparent;
+    }
+    .language-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 35px var(--shadow-hover);
+      border-color: var(--primary);
+    }
+    .language-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 4px; background: var(--primary);
+    }
+    .language-card.prancis::before { background: linear-gradient(90deg, #002654, #ED2939); }
+    .language-card.spanyol::before { background: linear-gradient(90deg, #C60B1E, #FC400); }
+    .language-card.italia::before { background: linear-gradient(90deg, #009246, #CE2B37); }
+    .language-card.jerman::before { background: linear-gradient(90deg, #000, #DD0000, #FFCE00); }
+    .language-card.rusia::before { background: linear-gradient(90deg, #fff, #0039A6, #D52B1E); }
+
+    .card-flag {
+      font-size: 4rem; margin-bottom: 15px; display: block;
+    }
+    .card-language {
+      font-size: 1.5rem; font-weight: 700; margin-bottom: 5px;
+      color: var(--text);
+    }
+    .card-native {
+      font-size: 1rem; color: var(--text-secondary); margin-bottom: 15px;
+    }
+    .card-stats {
+      display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;
+    }
+    .card-stat {
+      background: var(--bg); padding: 8px 15px; border-radius: 8px;
+      font-size: 0.85rem; color: var(--text-secondary);
+    }
+    .card-stat strong {
+      color: var(--primary); font-size: 1.1rem;
+    }
+    .card-description {
+      color: var(--text-secondary); font-size: 0.95rem;
+      margin-bottom: 20px; line-height: 1.5;
+    }
+    .card-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 24px; border-radius: 8px; font-weight: 600;
+      font-size: 0.95rem; transition: all 0.3s; width: 100%;
+      justify-content: center;
+    }
+    .card-btn.prancis { background: #002654; color: white; }
+    .card-btn.spanyol { background: #C60B1E; color: white; }
+    .card-btn.italia { background: #009246; color: white; }
+    .card-btn.jerman { background: #DD0000; color: white; }
+    .card-btn.rusia { background: #0039A6; color: white; }
+    .card-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+
+    /* ===== FEATURES SECTION ===== */
+    .features-section {
+      padding: 60px 0; background: var(--card-bg);
+    }
+    .features-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 25px;
+    }
+    .feature-card {
+      text-align: center; padding: 25px;
+    }
+    .feature-icon {
+      font-size: 3rem; margin-bottom: 15px;
+    }
+    .feature-title {
+      font-size: 1.1rem; font-weight: 700; margin-bottom: 10px;
+      color: var(--text);
+    }
+    .feature-desc {
+      color: var(--text-secondary); font-size: 0.95rem;
+    }
+
+    /* ===== STATS SECTION ===== */
+    .stats-section {
+      padding: 60px 0;
+    }
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 25px; text-align: center;
+    }
+    .stat-card {
+      background: var(--card-bg); border-radius: 12px; padding: 25px;
+      box-shadow: 0 4px 15px var(--shadow);
+    }
+    .stat-number {
+      font-size: 2.5rem; font-weight: 700; color: var(--primary);
+      margin-bottom: 5px;
+    }
+    .stat-label {
+      color: var(--text-secondary); font-size: 0.95rem;
+    }
+
+    /* ===== CTA SECTION ===== */
+    .cta-section {
+      padding: 60px 0; text-align: center;
+      background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+      color: white;
+    }
+    .cta-section h2 {
+      font-size: 2rem; margin-bottom: 15px;
+    }
+    .cta-section p {
+      font-size: 1.1rem; opacity: 0.9; margin-bottom: 30px;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--nav-bg); color: #aaa; text-align: center;
+      padding: 30px 20px;
+    }
+    footer p { font-size: 0.9rem; }
+    footer .footer-links {
+      display: flex; gap: 20px; justify-content: center;
+      margin-top: 15px; flex-wrap: wrap;
+    }
+    footer a { color: #ccc; transition: color 0.2s; }
+    footer a:hover { color: white; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+      .hero-flags { font-size: 2.5rem; letter-spacing: 10px; }
+      .hero p { font-size: 1rem; }
+      .language-grid { grid-template-columns: 1fr; }
+      .section-title { font-size: 1.6rem; }
+      .dark-mode-toggle { top: 10px; right: 10px; width: 40px; height: 40px; }
+    }
+    @media (max-width: 480px) {
+      .hero { padding: 60px 15px 40px; }
+      .hero h1 { font-size: 1.7rem; }
+      .btn { padding: 10px 20px; font-size: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dark Mode Toggle -->
+  <button class="dark-mode-toggle" id="darkModeToggle" onclick="toggleDarkMode()" title="Mode Gelap">
+    &#9789;
+  </button>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-flags">🇫🇷 🇪🇸 🇮🇹 🇩🇪 🇷🇺</div>
+    <h1>Belajar Bahasa Asing</h1>
+    <p>Platform pembelajaran bahasa asing interaktif dengan 5 bahasa tersedia. Mulai petualangan bahasa Anda dari nol hingga mahir!</p>
+    <div class="hero-actions">
+      <a href="#languages" class="btn btn-hero">Mulai Belajar</a>
+      <a href="#features" class="btn btn-hero">Fitur</a>
+    </div>
+  </section>
+
+  <!-- Languages Section -->
+  <section class="languages-section" id="languages">
+    <div class="container">
+      <h2 class="section-title">Pilih Bahasa</h2>
+      <p class="section-subtitle">Tersedia 5 bahasa dengan 1000+ kosakata masing-masing</p>
+      
+      <div class="language-grid">
+        <!-- French -->
+        <div class="language-card prancis" onclick="location.href='belajar-bahasa-prancis.html'">
+          <span class="card-flag">🇫🇷</span>
+          <h3 class="card-language">Bahasa Prancis</h3>
+          <p class="card-native">Français</p>
+          <div class="card-stats">
+            <span class="card-stat"><strong>1131</strong> Kosakata</span>
+            <span class="card-stat"><strong>16</strong> Kategori Quiz</span>
+            <span class="card-stat"><strong>35</strong> Achievements</span>
+          </div>
+          <p class="card-description">Pelajari bahasa romantis yang digunakan di Prancis, Belgia, Swiss, dan banyak negara Afrika.</p>
+          <a href="belajar-bahasa-prancis.html" class="card-btn prancis">Mulai Belajar →</a>
+        </div>
+
+        <!-- Spanish -->
+        <div class="language-card spanyol" onclick="location.href='belajar-bahasa-spanyol.html'">
+          <span class="card-flag">🇪🇸</span>
+          <h3 class="card-language">Bahasa Spanyol</h3>
+          <p class="card-native">Español</p>
+          <div class="card-stats">
+            <span class="card-stat"><strong>1112</strong> Kosakata</span>
+            <span class="card-stat"><strong>16</strong> Kategori Quiz</span>
+            <span class="card-stat"><strong>35</strong> Achievements</span>
+          </div>
+          <p class="card-description">Bahasa kedua paling banyak digunakan di dunia. Penting untuk komunikasi global.</p>
+          <a href="belajar-bahasa-spanyol.html" class="card-btn spanyol">Mulai Belajar →</a>
+        </div>
+
+        <!-- Italian -->
+        <div class="language-card italia" onclick="location.href='belajar-bahasa-italia.html'">
+          <span class="card-flag">🇮🇹</span>
+          <h3 class="card-language">Bahasa Italia</h3>
+          <p class="card-native">Italiano</p>
+          <div class="card-stats">
+            <span class="card-stat"><strong>1111</strong> Kosakata</span>
+            <span class="card-stat"><strong>16</strong> Kategori Quiz</span>
+            <span class="card-stat"><strong>35</strong> Achievements</span>
+          </div>
+          <p class="card-description">Bahasa seni, musik, dan kuliner. Jelajahi budaya Italia yang kaya.</p>
+          <a href="belajar-bahasa-italia.html" class="card-btn italia">Mulai Belajar →</a>
+        </div>
+
+        <!-- German -->
+        <div class="language-card jerman" onclick="location.href='belajar-bahasa-jerman.html'">
+          <span class="card-flag">🇩🇪</span>
+          <h3 class="card-language">Bahasa Jerman</h3>
+          <p class="card-native">Deutsch</p>
+          <div class="card-stats">
+            <span class="card-stat"><strong>1277</strong> Kosakata</span>
+            <span class="card-stat"><strong>16</strong> Kategori Quiz</span>
+            <span class="card-stat"><strong>35</strong> Achievements</span>
+          </div>
+          <p class="card-description">Bahasa terbesar di Eropa. Penting untuk bisnis, sains, dan teknologi.</p>
+          <a href="belajar-bahasa-jerman.html" class="card-btn jerman">Mulai Belajar →</a>
+        </div>
+
+        <!-- Russian -->
+        <div class="language-card rusia" onclick="location.href='belajar-bahasa-rusia.html'">
+          <span class="card-flag">🇷🇺</span>
+          <h3 class="card-language">Bahasa Rusia</h3>
+          <p class="card-native">Русский</p>
+          <div class="card-stats">
+            <span class="card-stat"><strong>1410</strong> Kosakata</span>
+            <span class="card-stat"><strong>16</strong> Kategori Quiz</span>
+            <span class="card-stat"><strong>35</strong> Achievements</span>
+          </div>
+          <p class="card-description">Bahasa Slavia terbesar dengan aksara Kiril. Jelajahi budaya Rusia yang kaya.</p>
+          <a href="belajar-bahasa-rusia.html" class="card-btn rusia">Mulai Belajar →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section" id="features">
+    <div class="container">
+      <h2 class="section-title">Fitur Unggulan</h2>
+      <p class="section-subtitle">Semua yang Anda butuhkan untuk belajar bahasa secara efektif</p>
+      
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📚</div>
+          <h3 class="feature-title">1000+ Kosakata</h3>
+          <p class="feature-desc">Lebih dari 1000 kata per bahasa dengan terjemahan dan catatan grammar.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3 class="feature-title">16 Kategori Quiz</h3>
+          <p class="feature-desc">Kuis interaktif dengan berbagai kategori untuk menguji pemahaman Anda.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🃏</div>
+          <h3 class="feature-title">Flashcard</h3>
+          <p class="feature-desc">Sistem kartu saku dengan filter kategori untuk belajar efisien.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔊</div>
+          <h3 class="feature-title">Audio TTS</h3>
+          <p class="feature-desc">Pengucapan otomatis dengan text-to-speech untuk belajar pronunciation.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🏆</div>
+          <h3 class="feature-title">Achievements</h3>
+          <p class="feature-desc">35 pencapaian untuk memotivasi progress belajar Anda.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌙</div>
+          <h3 class="feature-title">Dark Mode</h3>
+          <p class="feature-desc">Mode gelap untuk kenyamanan mata saat belajar di malam hari.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3 class="feature-title">Progress Tracking</h3>
+          <p class="feature-desc">Pantau kemajuan belajar dengan dashboard dan statistik lengkap.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💾</div>
+          <h3 class="feature-title">Export/Import</h3>
+          <p class="feature-desc">Simpan dan pulihkan data progress Anda kapan saja.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">5</div>
+          <div class="stat-label">Bahasa Tersedia</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">6000+</div>
+          <div class="stat-label">Total Kosakata</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">80</div>
+          <div class="stat-label">Kategori Quiz</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">175</div>
+          <div class="stat-label">Total Achievements</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Siap Mulai Belajar?</h2>
+      <p>Pilih bahasa yang Anda minati dan mulai petualangan bahasa Anda sekarang!</p>
+      <a href="#languages" class="btn btn-hero">Pilih Bahasa</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>Platform Pembelajaran Bahasa Asing</p>
+      <div class="footer-links">
+        <a href="belajar-bahasa-prancis.html">🇫🇷 Prancis</a>
+        <a href="belajar-bahasa-spanyol.html">🇪🇸 Spanyol</a>
+        <a href="belajar-bahasa-italia.html">🇮🇹 Italia</a>
+        <a href="belajar-bahasa-jerman.html">🇩🇪 Jerman</a>
+        <a href="belajar-bahasa-rusia.html">🇷🇺 Rusia</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Dark Mode Toggle
+    function toggleDarkMode() {
+      document.documentElement.classList.toggle('dark');
+      const isDark = document.documentElement.classList.contains('dark');
+      localStorage.setItem('darkMode', isDark);
+      updateDarkModeButton();
+    }
+
+    function updateDarkModeButton() {
+      const btn = document.getElementById('darkModeToggle');
+      const isDark = document.documentElement.classList.contains('dark');
+      btn.innerHTML = isDark ? '&#9788;' : '&#9789;';
+    }
+
+    // Load saved dark mode preference
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.documentElement.classList.add('dark');
+    }
+    updateDarkModeButton();
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
