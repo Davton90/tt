@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Belajar Bahasa Rusia Dasar</title>
+  <style>
+    /* ===== CSS VARIABLES ===== */
+    :root {
+      --white: #FFFFFF;
+      --blue: #0039A6;
+      --red: #D52B1E;
+      --bg: #f8f9fa;
+      --card-bg: #fff;
+      --text: #222;
+      --text-secondary: #555;
+      --border: #e0e0e0;
+      --shadow: rgba(0,0,0,0.08);
+      --shadow-hover: rgba(0,0,0,0.15);
+      --success: #4CAF50;
+      --warning: #FF9800;
+      --danger: #f44336;
+      --info: #2196F3;
+      --gold: #FFD700;
+      --nav-bg: #1a1a2e;
+      --section-alt: #fff;
+    }
+
+    /* ===== DARK MODE ===== */
+    html.dark {
+      --bg: #0f0f1a;
+      --card-bg: #1a1a2e;
+      --text: #e0e0e0;
+      --text-secondary: #aaa;
+      --border: #333;
+      --shadow: rgba(0,0,0,0.3);
+      --shadow-hover: rgba(0,0,0,0.5);
+      --nav-bg: #111;
+      --section-alt: #14142a;
+    }
+
+    /* ===== RESET & BASE ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6; color: var(--text); background: var(--bg);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    body.app-loaded { opacity: 1; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+    a { color: var(--blue); }
+    .btn {
+      padding: 10px 22px; border: none; border-radius: 8px; cursor: pointer;
+      font-size: 0.95rem; font-weight: 600; transition: all 0.2s;
+    }
+    .btn-primary { background: var(--blue); color: #fff; }
+    .btn-primary:hover { background: #002b80; transform: translateY(-1px); }
+    .btn-secondary { background: var(--border); color: var(--text); }
+    .btn-secondary:hover { background: #ccc; }
+    .btn-danger { background: var(--danger); color: #fff; }
+    .btn-danger:hover { opacity: 0.9; }
+    .btn-sm { padding: 6px 14px; font-size: 0.85rem; }
+    .btn-icon { background: none; border: none; cursor: pointer; font-size: 1.2rem; padding: 4px; }
+    .toggle-switch {
+      position: relative; display: inline-block; width: 50px; height: 26px;
+    }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider {
+      position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--border); border-radius: 26px; transition: 0.3s;
+    }
+    .toggle-slider::before {
+      content: ''; position: absolute; height: 20px; width: 20px;
+      left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.3s;
+    }
+    .toggle-switch input:checked + .toggle-slider { background: var(--blue); }
+    .toggle-switch input:checked + .toggle-slider::before { transform: translateX(24px); }
+
+    /* ===== HEADER ===== */
+    header {
+      background: linear-gradient(135deg, #f0f0f0 0%, var(--blue) 50%, var(--red) 100%);
+      color: white; text-align: center; padding: 60px 20px 50px; position: relative;
+    }
+    header h1 { font-size: 2.6rem; margin-bottom: 10px; letter-spacing: 1px; }
+    header p { font-size: 1.1rem; opacity: 0.9; }
+    .header-actions {
+      display: flex; gap: 10px; justify-content: center; margin-top: 20px; flex-wrap: wrap;
+    }
+    .header-actions .btn { font-size: 0.9rem; padding: 8px 18px; border-radius: 20px; }
+    .btn-header { background: rgba(255,255,255,0.2); color: #fff; border: 1px solid rgba(255,255,255,0.4); }
+    .btn-header:hover { background: rgba(255,255,255,0.35); }
+    .user-stats {
+      display: flex; gap: 20px; justify-content: center; margin-top: 15px;
+      font-size: 0.9rem; opacity: 0.9;
+    }
+    .user-stats span { background: rgba(255,255,255,0.15); padding: 4px 12px; border-radius: 12px; }
+
+    /* ===== NAV ===== */
+    nav {
+      background: var(--nav-bg); position: sticky; top: 0; z-index: 100;
+      display: flex; justify-content: center; gap: 6px; padding: 10px 15px; flex-wrap: wrap;
+      align-items: center;
+    }
+    nav a {
+      color: #eee; text-decoration: none; padding: 5px 14px; border-radius: 18px;
+      font-size: 0.88rem; transition: 0.2s;
+    }
+    nav a:hover, nav a.nav-active { background: var(--blue); color: #fff; }
+    .nav-divider { width: 1px; height: 20px; background: #444; margin: 0 4px; }
+    #darkModeToggle { display: none; }
+    .dark-toggle-label {
+      cursor: pointer; color: #eee; font-size: 1.2rem; padding: 4px 8px;
+    }
+
+    /* ===== SECTIONS ===== */
+    section { padding: 50px 0; }
+    section:nth-child(even) { background: var(--section-alt); }
+    h2 {
+      text-align: center; font-size: 1.9rem; margin-bottom: 30px;
+      position: relative; padding-bottom: 12px;
+    }
+    h2::after {
+      content: ''; display: block; width: 60px; height: 3px;
+      background: var(--blue); margin: 10px auto 0; border-radius: 2px;
+    }
+
+    /* ===== CARDS ===== */
+    .card-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px;
+    }
+    .card {
+      background: var(--card-bg); border-radius: 12px; padding: 22px;
+      box-shadow: 0 4px 15px var(--shadow); transition: transform 0.2s, box-shadow 0.2s;
+      border-top: 4px solid var(--red); position: relative;
+    }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px var(--shadow-hover); }
+    .card h3 { color: var(--blue); margin-bottom: 10px; font-size: 1.15rem; }
+    .card p { margin: 5px 0; }
+    .card .ru { font-weight: 600; color: var(--text); }
+    .card .id { color: var(--text-secondary); font-size: 0.9rem; }
+    .card .note {
+      display: inline-block; background: #fff3cd; padding: 1px 7px;
+      border-radius: 4px; font-size: 0.82rem; margin-top: 4px;
+    }
+    html.dark .card .note { background: #3a3000; }
+    .card-actions {
+      display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;
+    }
+    .card-action-btn {
+      padding: 5px 12px; font-size: 0.8rem; border-radius: 6px;
+      border: 1px solid var(--border); background: var(--bg); color: var(--text);
+      cursor: pointer; transition: 0.2s;
+    }
+    .card-action-btn:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+    /* ===== TABLE ===== */
+    table {
+      width: 100%; max-width: 700px; margin: 0 auto; border-collapse: collapse;
+      background: var(--card-bg); border-radius: 8px; overflow: hidden;
+      box-shadow: 0 2px 10px var(--shadow);
+    }
+    th, td { padding: 10px 15px; text-align: left; border-bottom: 1px solid var(--border); }
+    th { background: var(--blue); color: white; }
+    tr:hover { background: rgba(0,0,0,0.03); }
+    html.dark tr:hover { background: rgba(255,255,255,0.05); }
+
+    /* ===== RECOMMENDATION CARDS ===== */
+    .rec-card {
+      background: var(--card-bg); border-radius: 12px; padding: 22px;
+      box-shadow: 0 4px 15px var(--shadow); border-left: 5px solid var(--blue);
+      margin-bottom: 18px;
+    }
+    .rec-card h3 { color: var(--blue); margin-bottom: 8px; }
+    .rec-card a { color: var(--red); text-decoration: none; font-weight: 500; }
+    .rec-card a:hover { text-decoration: underline; }
+
+    /* ===== DASHBOARD ===== */
+    .dashboard-panel {
+      display: none; background: var(--card-bg); border-radius: 12px;
+      padding: 30px; margin: 20px auto; max-width: 1100px;
+      box-shadow: 0 4px 20px var(--shadow);
+    }
+    .dashboard-panel.dashboard-open { display: block; }
+    .dashboard-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px;
+    }
+    .dashboard-card {
+      background: var(--bg); border-radius: 10px; padding: 18px; text-align: center;
+    }
+    .dashboard-card.main-stats {
+      grid-column: 1 / -1; display: flex; align-items: center; gap: 20px;
+      text-align: left; padding: 25px;
+    }
+    .stat-avatar { font-size: 3rem; }
+    .stat-info { flex: 1; }
+    .stat-info h3 { color: var(--blue); margin-bottom: 8px; }
+    .stat-number { font-size: 2rem; font-weight: 700; color: var(--blue); }
+    .stat-label { color: var(--text-secondary); font-size: 0.85rem; }
+    .stat-highlight { color: var(--red); font-weight: 600; margin-top: 4px; }
+    .xp-bar {
+      width: 100%; height: 10px; background: var(--border); border-radius: 5px;
+      overflow: hidden; margin-top: 10px;
+    }
+    .xp-bar-fill {
+      height: 100%; background: linear-gradient(90deg, var(--red), var(--gold));
+      border-radius: 5px; transition: width 0.5s;
+    }
+    .progress-bar {
+      width: 100%; height: 10px; background: var(--border); border-radius: 5px;
+      overflow: hidden; margin-top: 10px;
+    }
+    .progress-fill {
+      height: 100%; background: linear-gradient(90deg, var(--blue), var(--success));
+      border-radius: 5px; transition: width 0.5s;
+    }
+    .achievement-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px;
+      margin-top: 15px;
+    }
+    .achievement-item {
+      background: var(--bg); border-radius: 10px; padding: 12px; text-align: center;
+      border: 2px solid var(--border); transition: all 0.2s;
+    }
+    .achievement-item.unlocked {
+      border-color: var(--gold); background: linear-gradient(135deg, #fff9e6, #fff);
+    }
+    .achievement-item.locked { opacity: 0.5; filter: grayscale(0.8); }
+    .achievement-icon { font-size: 2rem; margin-bottom: 5px; }
+    .achievement-title { font-size: 0.8rem; font-weight: 600; }
+    .streak-info {
+      display: flex; align-items: center; gap: 10px; margin-top: 10px;
+      padding: 10px; background: var(--bg); border-radius: 8px;
+    }
+    .streak-number { font-size: 1.8rem; font-weight: 700; color: var(--red); }
+
+    /* ===== GRAMMAR SECTION ===== */
+    .grammar-section {
+      background: var(--card-bg); border-radius: 12px; padding: 25px;
+      margin-bottom: 22px; box-shadow: 0 4px 15px var(--shadow);
+    }
+    .grammar-section h3 {
+      color: var(--blue); margin-bottom: 12px; font-size: 1.2rem;
+      border-bottom: 2px solid var(--blue); padding-bottom: 8px;
+    }
+    .grammar-rule {
+      background: var(--bg); border-radius: 8px; padding: 15px;
+      margin: 10px 0; border-left: 4px solid var(--blue);
+    }
+    .conjugation-table { font-size: 0.95rem; }
+    .conjugation-table td { padding: 8px 12px; }
+
+    /* ===== FLASHCARD STYLES ===== */
+    .flashcard-header { text-align: center; margin-bottom: 15px; }
+    .flashcard-header h3 { color: var(--blue); }
+    .flashcard-filter { margin: 10px 0; display: flex; align-items: center; justify-content: center; gap: 10px; }
+    .flashcard-filter label { font-size: 0.9rem; color: var(--text-secondary); }
+    .flashcard-filter select {
+      padding: 8px 12px; border: 2px solid var(--border); border-radius: 8px;
+      background: var(--bg); color: var(--text); font-size: 0.9rem;
+      cursor: pointer; max-width: 300px;
+    }
+    .flashcard-filter select:focus { border-color: var(--blue); outline: none; }
+    .flashcard-counter { color: var(--text-secondary); font-size: 0.9rem; }
+    .flashcard-progress-bar {
+      width: 100%; height: 6px; background: var(--border); border-radius: 3px;
+      overflow: hidden; margin-top: 8px;
+    }
+    .flashcard-progress-fill {
+      height: 100%; background: var(--blue); border-radius: 3px; transition: width 0.3s;
+    }
+    .flashcard-body { display: flex; justify-content: center; margin: 20px 0; }
+    .flashcard {
+      width: 300px; height: 200px; perspective: 1000px; cursor: pointer;
+    }
+    .flashcard-inner {
+      width: 100%; height: 100%; position: relative; transition: transform 0.5s;
+      transform-style: preserve-3d;
+    }
+    .flashcard-inner.flipped { transform: rotateY(180deg); }
+    .flashcard-front, .flashcard-back {
+      position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+      border-radius: 12px; display: flex; flex-direction: column;
+      justify-content: center; align-items: center; padding: 20px;
+    }
+    .flashcard-front {
+      background: linear-gradient(135deg, var(--blue), #001a66); color: white;
+    }
+    .flashcard-back {
+      background: linear-gradient(135deg, var(--red), #990000); color: white;
+      transform: rotateY(180deg);
+    }
+    .flashcard-lang { font-size: 0.85rem; opacity: 0.8; margin-bottom: 8px; }
+    .flashcard-text { font-size: 1.5rem; font-weight: 700; text-align: center; }
+    .flashcard-note { font-size: 0.85rem; opacity: 0.8; margin-top: 8px; }
+    .flashcard-hint { text-align: center; color: var(--text-secondary); font-size: 0.85rem; }
+    .btn-speak {
+      background: rgba(255,255,255,0.2); color: white; margin-top: 10px;
+      padding: 6px 14px; border-radius: 20px; font-size: 1.1rem;
+    }
+    .btn-speak:hover { background: rgba(255,255,255,0.35); }
+    .flashcard-actions {
+      display: flex; gap: 10px; justify-content: center; margin: 15px 0;
+    }
+    .btn-flashcard {
+      padding: 8px 16px; border: none; border-radius: 8px; cursor: pointer;
+      font-size: 0.9rem; font-weight: 500; transition: all 0.2s;
+    }
+    .btn-hard { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
+    .btn-hard:hover { background: #ffcdd2; }
+    .btn-ok { background: #fff8e1; color: #f57f17; border: 1px solid #ffe082; }
+    .btn-ok:hover { background: #ffecb3; }
+    .btn-easy { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+    .btn-easy:hover { background: #c8e6c9; }
+    .flashcard-nav {
+      display: flex; justify-content: space-between; margin-top: 15px;
+    }
+
+    /* ===== QUIZ STYLES ===== */
+    .quiz-header { text-align: center; margin-bottom: 20px; }
+    .quiz-header h3 { color: var(--blue); font-size: 1.3rem; }
+    .quiz-progress { margin: 10px 0; }
+    .quiz-progress-bar {
+      width: 100%; height: 8px; background: var(--border); border-radius: 4px;
+      overflow: hidden;
+    }
+    .quiz-progress-fill {
+      height: 100%; background: var(--blue); border-radius: 4px; transition: width 0.3s;
+    }
+    .quiz-question {
+      background: var(--bg); border-radius: 10px; padding: 20px;
+      margin-bottom: 20px; text-align: center;
+    }
+    .quiz-question h4 { font-size: 1.1rem; margin-bottom: 15px; }
+    .quiz-options {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    }
+    .quiz-option {
+      padding: 12px; border: 2px solid var(--border); border-radius: 8px;
+      background: var(--card-bg); cursor: pointer; transition: all 0.2s;
+      font-size: 0.95rem;
+    }
+    .quiz-option:hover { border-color: var(--blue); background: #e8f0ff; }
+    .quiz-option.correct { border-color: var(--success); background: #e8f5e9; }
+    .quiz-option.wrong { border-color: var(--danger); background: #ffebee; }
+    .quiz-option:disabled { cursor: not-allowed; opacity: 0.7; }
+    .quiz-result {
+      text-align: center; padding: 30px;
+    }
+    .quiz-result-score { font-size: 3rem; font-weight: 700; color: var(--blue); }
+    .quiz-result-xp { color: var(--success); font-weight: 600; font-size: 1.1rem; margin: 8px 0; }
+    .quiz-result-message { color: var(--text-secondary); margin: 10px 0; }
+    .quiz-result-actions { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
+
+    /* ===== SETTINGS ===== */
+    .settings-content { padding: 10px; }
+    .settings-content h3 { color: var(--blue); margin-bottom: 20px; text-align: center; }
+    .setting-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 0; border-bottom: 1px solid var(--border);
+    }
+    .setting-item label { font-weight: 500; }
+    .setting-actions { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
+    input[type="range"] { flex: 1; margin: 0 10px; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--blue); color: white; text-align: center;
+      padding: 30px 20px; margin-top: 40px;
+    }
+    footer p { opacity: 0.9; }
+    footer span { color: var(--red); }
+
+    /* ===== MODAL ===== */
+    .modal {
+      display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6); z-index: 1000; justify-content: center;
+      align-items: center; padding: 20px;
+    }
+    .modal.active { display: flex; }
+    .modal-content {
+      background: var(--card-bg); border-radius: 12px; padding: 30px;
+      max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    }
+
+    /* ===== XP POPUP ===== */
+    .xp-popup {
+      position: fixed; top: 20px; right: 20px; background: var(--gold);
+      color: var(--blue); padding: 12px 20px; border-radius: 8px;
+      font-weight: 700; z-index: 2000; animation: popIn 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    @keyframes popIn {
+      from { transform: scale(0.5); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    /* ===== TOAST ===== */
+    .toast {
+      position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+      padding: 12px 24px; border-radius: 8px; color: white; font-weight: 500;
+      z-index: 2000; animation: slideUp 0.3s ease;
+    }
+    .toast.success { background: var(--success); }
+    .toast.error { background: var(--danger); }
+    .toast.warning { background: var(--warning); }
+    .toast.info { background: var(--info); }
+    @keyframes slideUp {
+      from { transform: translate(-50%, 20px); opacity: 0; }
+      to { transform: translate(-50%, 0); opacity: 1; }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      header h1 { font-size: 1.8rem; }
+      .quiz-options { grid-template-columns: 1fr; }
+      .dashboard-card.main-stats { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="container">
+    <h1>&#127479;&#127482; Belajar Bahasa Rusia</h1>
+    <p>Mulai petualangan bahasa Rusia Anda dari nol hingga mahir!</p>
+    <div class="header-actions">
+      <button class="btn btn-header" onclick="appRu.openSettings()">&#9881; Pengaturan</button>
+      <button class="btn btn-header" onclick="document.getElementById('dashboardToggle').click()">&#128202; Dashboard</button>
+    </div>
+    <div class="user-stats">
+      <span>&#11088; <span id="statXP">0</span> XP</span>
+      <span>&#127942; Level <span id="statLevel">1</span></span>
+      <span>&#128293; <span id="statStreak">0</span> Hari</span>
+    </div>
+  </div>
+</header>
+
+<!-- ===== NAV ===== -->
+<nav>
+  <a href="#dashboard" class="nav-active">Dashboard</a>
+  <a href="#kosakata">Kosakata</a>
+  <a href="#grammar">Grammar</a>
+  <a href="#extended">Lanjutan</a>
+  <a href="#rekomendasi">Rekomendasi</a>
+  <div class="nav-divider"></div>
+  <input type="checkbox" id="darkModeToggle">
+  <label for="darkModeToggle" class="dark-toggle-label">&#9789;</label>
+</nav>
+
+<!-- ===== DASHBOARD TOGGLE ===== -->
+<div class="container" style="margin-top: 20px;">
+  <button id="dashboardToggle" class="btn btn-primary" style="width: 100%; padding: 15px;">
+    &#128202; Tampilkan Dashboard Saya
+  </button>
+</div>
+
+<!-- ===== DASHBOARD CONTENT ===== -->
+<div id="dashboardContent" class="dashboard-panel">
+  <div class="dashboard-grid">
+    <div class="dashboard-card main-stats">
+      <div class="stat-avatar">&#128100;</div>
+      <div class="stat-info">
+        <h3>Progress Belajar Saya</h3>
+        <div class="stat-number">Level <span id="dashLevel">1</span></div>
+        <div class="stat-label"><span id="dashXP">0</span> / <span id="dashNextXP">100</span> XP ke Level Berikutnya</div>
+        <div class="xp-bar">
+          <div class="xp-bar-fill" id="dashXPBar" style="width: 0%"></div>
+        </div>
+        <div class="stat-highlight" id="dashTitle">Pemula Bahasa Rusia</div>
+      </div>
+    </div>
+    <div class="dashboard-card">
+      <div class="stat-number" id="dashQuizzes">0</div>
+      <div class="stat-label">Kuis Selesai</div>
+    </div>
+    <div class="dashboard-card">
+      <div class="stat-number" id="dashFlashcards">0</div>
+      <div class="stat-label">Kartu Dipelajari</div>
+    </div>
+    <div class="dashboard-card">
+      <div class="stat-number" id="dashAccuracy">0%</div>
+      <div class="stat-label">Akurasi Kuis</div>
+    </div>
+    <div class="dashboard-card">
+      <div class="streak-info">
+        <div class="streak-number" id="dashStreak">0</div>
+        <div>
+          <div class="stat-label">Hari Berturut</div>
+          <div class="stat-highlight">Pertahankan!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h3 style="margin-top: 25px; color: var(--blue);">&#127942; Pencapaian</h3>
+  <div class="achievement-grid" id="achievementGrid">
+    <!-- Achievement items will be rendered by ProgressTracker -->
+  </div>
+</div>
+
+<!-- ===== MAIN VOCABULARY ===== -->
+<section id="kosakata">
+  <div class="container">
+    <h2>&#128218; Kosakata Dasar Bahasa Rusia</h2>
+    <div class="card-grid">
+      <!-- Salam -->
+      <div class="card">
+        <h3>&#128075; Salam & Perkenalan</h3>
+        <p><span class="ru">Привет (Privet)</span> <span class="id">— Halo</span></p>
+        <p><span class="ru">Добрый день (Dobryy den')</span> <span class="id">— Selamat siang</span></p>
+        <p><span class="ru">Доброе утро (Dobroye utro)</span> <span class="id">— Selamat pagi</span></p>
+        <p><span class="ru">Добрый вечер (Dobryy vecher)</span> <span class="id">— Selamat malam</span></p>
+        <p><span class="ru">Пока (Poka)</span> <span class="id">— Dah/Bye</span></p>
+        <p><span class="ru">До свидания (Do svidaniya)</span> <span class="id">— Sampai jumpa</span></p>
+        <p><span class="ru">Спасибо (Spasibo)</span> <span class="id">— Terima kasih</span></p>
+        <p><span class="ru">Пожалуйста (Pozhaluysta)</span> <span class="id">— Tolong/Sama-sama</span></p>
+        <div class="card-actions">
+          <button class="card-action-btn" data-quiz="greetings">Quiz</button>
+          <button class="card-action-btn" data-flashcard="salam">Kartu Saku</button>
+        </div>
+      </div>
+
+      <!-- Angka -->
+      <div class="card">
+        <h3>&#128290; Angka</h3>
+        <p><span class="ru">один (odin)</span> <span class="id">— 1</span></p>
+        <p><span class="ru">два (dva)</span> <span class="id">— 2</span></p>
+        <p><span class="ru">три (tri)</span> <span class="id">— 3</span></p>
+        <p><span class="ru">четыре (chetyre)</span> <span class="id">— 4</span></p>
+        <p><span class="ru">пять (pyat')</span> <span class="id">— 5</span></p>
+        <p><span class="ru">шесть (shest')</span> <span class="id">— 6</span></p>
+        <p><span class="ru">семь (sem')</span> <span class="id">— 7</span></p>
+        <p><span class="ru">восемь (vosem')</span> <span class="id">— 8</span></p>
+        <p><span class="ru">девять (devyat')</span> <span class="id">— 9</span></p>
+        <p><span class="ru">десять (desyat')</span> <span class="id">— 10</span></p>
+        <div class="card-actions">
+          <button class="card-action-btn" data-quiz="numbers">Quiz</button>
+          <button class="card-action-btn" data-flashcard="angka">Kartu Saku</button>
+        </div>
+      </div>
+
+      <!-- Warna -->
+      <div class="card">
+        <h3>&#127912; Warna</h3>
+        <p><span class="ru">красный (krasnyy)</span> <span class="id">— Merah</span></p>
+        <p><span class="ru">синий (siniy)</span> <span class="id">— Biru</span></p>
+        <p><span class="ru">зелёный (zelyonyy)</span> <span class="id">— Hijau</span></p>
+        <p><span class="ru">жёлтый (zhёltyy)</span> <span class="id">— Kuning</span></p>
+        <p><span class="ru">чёрный (chyornyy)</span> <span class="id">— Hitam</span></p>
+        <p><span class="ru">белый (belly)</span> <span class="id">— Putih</span></p>
+        <p><span class="ru">оранжевый (oranzhevyy)</span> <span class="id">— Oranye</span></p>
+        <p><span class="ru">розовый (rozovyy)</span> <span class="id">— Merah muda</span></p>
+        <div class="card-actions">
+          <button class="card-action-btn" data-quiz="colors">Quiz</button>
+          <button class="card-action-btn" data-flashcard="warna">Kartu Saku</button>
+        </div>
+      </div>
+
+      <!-- Keluarga -->
+      <div class="card">
+        <h3>&#128106; Keluarga</h3>
+        <p><span class="ru">мать (mat')</span> <span class="id">— Ibu</span></p>
+        <p><span class="ru">отец (otets)</span> <span class="id">— Ayah</span></p>
+        <p><span class="ru">сестра (sestra)</span> <span class="id">— Saudari</span></p>
+        <p><span class="ru">брат (brat)</span> <span class="id">— Saudara laki-laki</span></p>
+        <p><span class="ru">дочь (dochi)</span> <span class="id">— Anak perempuan</span></p>
+        <p><span class="ru">сын (syn)</span> <span class="id">— Anak laki-laki</span></p>
+        <p><span class="ru">бабушка (babushka)</span> <span class="id">— Nenek</span></p>
+        <p><span class="ru">дедушка (dedushka)</span> <span class="id">— Kakek</span></p>
+        <div class="card-actions">
+          <button class="card-action-btn" data-quiz="family">Quiz</button>
+          <button class="card-action-btn" data-flashcard="keluarga">Kartu Saku</button>
+        </div>
+      </div>
+
+      <!-- Makanan -->
+      <div class="card">
+        <h3>&#127860; Makanan & Minuman</h3>
+        <p><span class="ru">хлеб (khleb)</span> <span class="id">— Roti</span></p>
+        <p><span class="ru">вода (voda)</span> <span class="id">— Air</span></p>
+        <p><span class="ru">кофе (kofe)</span> <span class="id">— Kopi</span></p>
+        <p><span class="ru">молоко (moloko)</span> <span class="id">— Susu</span></p>
+        <p><span class="ru">яблоко (yabloko)</span> <span class="id">— Apel</span></p>
+        <p><span class="ru">мясо (myaso)</span> <span class="id">— Daging</span></p>
+        <p><span class="ru">рыба (ryba)</span> <span class="id">— Ikan</span></p>
+        <p><span class="ru">рис (ris)</span> <span class="id">— Nasi</span></p>
+        <div class="card-actions">
+          <button class="card-action-btn" data-quiz="food">Quiz</button>
+          <button class="card-action-btn" data-flashcard="makanan">Kartu Saku</button>
+        </div>
+      </div>
+
+      <!-- Tempat -->
+      <div class="card">
+        <h3>&#128205; Tempat & Lokasi</h3>
+        <p><span class="ru">школа (shkola)</span> <span class="id">— Sekolah</span></p>
+        <p><span class="ru">дом (dom)</span> <span class="id">— Rumah</span></p>
+        <p><span class="ru">магазин (magazin)</span> <span class="id">— Toko</span></p>
+        <p><span class="ru">больница (bol'nitsa)</span> <span class="id">— Rumah sakit</span></p>
+        <p><span class="ru">ресторан (restoran)</span> <span class="id">— Restoran</span></p>
+        <p><span class="ru">вокзал (vokzal)</span> <span class="id">— Stasiun</span></p>
+        <p><span class="ru">аптека (apteka)</span> <span class="id">— Apotek</span></p>
+        <p><span class="ru">банк (bank)</span> <span class="id">— Bank</span></p>
+        <div class="card-actions">
+          <button class="card-action-btn" data-quiz="places">Quiz</button>
+          <button class="card-action-btn" data-flashcard="tempat">Kartu Saku</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== GRAMMAR ===== -->
+<section id="grammar">
+  <div class="container">
+    <h2>&#128214; Tata Bahasa Rusia</h2>
+
+    <div class="grammar-section">
+      <h3>Abjad Kiril (Кириллица)</h3>
+      <p>Bahasa Rusia menggunakan Abjad Kiril. Berikut beberapa huruf dasar:</p>
+      <div class="grammar-rule">
+        <strong>Huruf Vokal:</strong>
+        <p><strong>А а</strong> (a), <strong>Е е</strong> (ye), <strong>Ё ё</strong> (yo), <strong>И и</strong> (i), <strong>О о</strong> (o), <strong>У у</strong> (u), <strong>Ы ы</strong> (y), <strong>Э э</strong> (e), <strong>Ю ю</strong> (yu), <strong>Я я</strong> (ya)</p>
+      </div>
+      <div class="grammar-rule">
+        <strong>Huruf Konsonan:</strong>
+        <p><strong>Б б</strong> (b), <strong>В в</strong> (v), <strong>Г г</strong> (g), <strong>Д д</strong> (d), <strong>Ж ж</strong> (zh), <strong>З з</strong> (z), <strong>К к</strong> (k), <strong>Л л</strong> (l), <strong>М м</strong> (m), <strong>Н н</strong> (n), <strong>П п</strong> (p), <strong>Р р</strong> (r), <strong>С с</strong> (s), <strong>Т т</strong> (t), <strong>Ф ф</strong> (f), <strong>Х х</strong> (kh), <strong>Ц ц</strong> (ts), <strong>Ч ч</strong> (ch), <strong>Ш ш</strong> (sh), <strong>Щ щ</strong> (shch)</p>
+      </div>
+      <div class="grammar-rule">
+        <strong>Huruf Lainnya:</strong>
+        <p><strong>Ъ ъ</strong> (tanda keras), <strong>Ь ь</strong> (tanda lunak)</p>
+      </div>
+    </div>
+
+    <div class="grammar-section">
+      <h3>Kata Benda Rusia (Gender)</h3>
+      <p>Setiap kata benda dalam bahasa Rusia memiliki gender (maskulin, feminin, netral).</p>
+      <div class="grammar-rule">
+        <strong>Maskulin (мужской род):</strong>
+        <p><strong>стол</strong> (stol - meja), <strong>дом</strong> (dom - rumah), <strong>кот</strong> (kot - kucing jantan)</p>
+      </div>
+      <div class="grammar-rule">
+        <strong>Feminin (женский род):</strong>
+        <p><strong>книга</strong> (kniga - buku), <strong>лампа</strong> (lampa - lampu), <strong>кошка</strong> (koshka - kucing betina)</p>
+      </div>
+      <div class="grammar-rule">
+        <strong>Netral (средний род):</strong>
+        <p><strong>окно</strong> (okno - jendela), <strong>письмо</strong> (pis'mo - surat), <strong>молоко</strong> (moloko - susu)</p>
+      </div>
+    </div>
+
+    <div class="grammar-section">
+      <h3>Kata Kerja Dasar (Основные глаголы)</h3>
+      <div class="grammar-rule">
+        <strong>быть (Menjadi/Adalah):</strong>
+        <table class="conjugation-table">
+          <tr><td>я</td><td><strong>(есть)</strong></td><td>ты</td><td><strong>(есть)</strong></td></tr>
+          <tr><td>он/она/оно</td><td><strong>(есть)</strong></td><td>мы</td><td><strong>(есть)</strong></td></tr>
+          <tr><td>вы</td><td><strong>(есть)</strong></td><td>они</td><td><strong>(есть)</strong></td></tr>
+        </table>
+        <p style="font-size:0.85rem;color:var(--text-secondary);margin-top:8px;">*Dalam bahasa Rusia modern, kata "есть" (yest') sering tidak digunakan (dihilangkan).</p>
+      </div>
+      <div class="grammar-rule">
+        <strong>иметь (Memiliki):</strong>
+        <table class="conjugation-table">
+          <tr><td>я</td><td><strong>имею</strong></td><td>ты</td><td><strong>имеешь</strong></td></tr>
+          <tr><td>он/она/оно</td><td><strong>имеет</strong></td><td>мы</td><td><strong>имеем</strong></td></tr>
+          <tr><td>вы</td><td><strong>имеете</strong></td><td>они</td><td><strong>имеют</strong></td></tr>
+        </table>
+      </div>
+      <div class="grammar-rule">
+        <strong>делать (Melakukan):</strong>
+        <table class="conjugation-table">
+          <tr><td>я</td><td><strong>делаю</strong></td><td>ты</td><td><strong>делаешь</strong></td></tr>
+          <tr><td>он/она/оно</td><td><strong>делает</strong></td><td>мы</td><td><strong>делаем</strong></td></tr>
+          <tr><td>вы</td><td><strong>делаете</strong></td><td>они</td><td><strong>делают</strong></td></tr>
+        </table>
+      </div>
+      <div class="grammar-rule">
+        <strong>говорить (Bicara):</strong>
+        <table class="conjugation-table">
+          <tr><td>я</td><td><strong>говорю</strong></td><td>ты</td><td><strong>говоришь</strong></td></tr>
+          <tr><td>он/она/оно</td><td><strong>говорит</strong></td><td>мы</td><td><strong>говорим</strong></td></tr>
+          <tr><td>вы</td><td><strong>говорите</strong></td><td>они</td><td><strong>говорят</strong></td></tr>
+        </table>
+      </div>
+      <div class="grammar-rule">
+        <strong>мочь (Bisa):</strong>
+        <table class="conjugation-table">
+          <tr><td>я</td><td><strong>могу</strong></td><td>ты</td><td><strong>можешь</strong></td></tr>
+          <tr><td>он/она/оно</td><td><strong>может</strong></td><td>мы</td><td><strong>можем</strong></td></tr>
+          <tr><td>вы</td><td><strong>можете</strong></td><td>они</td><td><strong>могут</strong></td></tr>
+        </table>
+      </div>
+      <div style="text-align:center;margin-top:12px;">
+        <button class="card-action-btn" data-quiz="verbConjugations">Quiz Grammar</button>
+      </div>
+    </div>
+
+    <div class="grammar-section">
+      <h3>Negasi (Не)</h3>
+      <p>Letakkan <strong>"не"</strong> sebelum kata kerja.</p>
+      <div class="grammar-rule">
+        <strong>Я говорю по-русски.</strong> → <strong>Я не говорю по-русски.</strong> <span class="id">(Saya tidak bicara bahasa Rusia)</span>
+      </div>
+      <div class="grammar-rule">
+        <strong>Он большой.</strong> → <strong>Он не большой.</strong> <span class="id">(Dia tidak besar)</span>
+      </div>
+      <div class="grammar-rule">
+        <strong>У нас есть время.</strong> → <strong>У нас нет времени.</strong> <span class="id">(Kami tidak punya waktu)</span>
+      </div>
+    </div>
+
+    <div class="grammar-section">
+      <h3>Pertanyaan (Вопросы)</h3>
+      <div class="grammar-rule">
+        <strong>1. Intonasi</strong> (naikkan suara di akhir): <em>Ты говоришь по-русски?</em>
+      </div>
+      <div class="grammar-rule">
+        <strong>2. Partikel "ли"</strong> (apakah): <em>Говоришь ли ты по-русски?</em>
+      </div>
+      <div class="grammar-rule">
+        <strong>3. Kata Tanya</strong> (вопросительные слова): <em>Что ты говоришь? Где ты? Кто это?</em>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EXTENDED CONTENT ===== -->
+<section id="extended">
+  <div class="container">
+    <h2>&#128218; Kosakata Lanjutan</h2>
+    <div class="card-grid">
+      <div class="card">
+        <h3>&#128197; Bulan</h3>
+        <p><span class="ru">январь (yanvar')</span> <span class="id">— Januari</span></p>
+        <p><span class="ru">февраль (fevral')</span> <span class="id">— Februari</span></p>
+        <p><span class="ru">март (mart)</span> <span class="id">— Maret</span></p>
+        <p><span class="ru">апрель (aprel')</span> <span class="id">— April</span></p>
+        <p><span class="ru">май (may)</span> <span class="id">— Mei</span></p>
+        <p><span class="ru">июнь (iyun')</span> <span class="id">— Juni</span></p>
+        <p><span class="ru">июль (iyul')</span> <span class="id">— Juli</span></p>
+        <p><span class="ru">август (avgust)</span> <span class="id">— Agustus</span></p>
+        <p><span class="ru">сентябрь (sentyabr')</span> <span class="id">— September</span></p>
+        <p><span class="ru">октябрь (oktyabr')</span> <span class="id">— Oktober</span></p>
+        <p><span class="ru">ноябрь (noyabr')</span> <span class="id">— November</span></p>
+        <p><span class="ru">декабрь (dekabr')</span> <span class="id">— Desember</span></p>
+        <div class="card-actions">
+          <button class="card-action-btn" data-flashcard="bulan">Kartu Saku</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3>&#127780; Cuaca</h3>
+        <p><span class="ru">солнечно (solnechno)</span> <span class="id">— cerah</span></p>
+        <p><span class="ru">жарко (zharko)</span> <span class="id">— panas</span></p>
+        <p><span class="ru">холодно (kholodno)</span> <span class="id">— dingin</span></p>
+        <p><span class="ru">идёт дождь (idyot dozhd')</span> <span class="id">— hujan</span></p>
+        <p><span class="ru">идёт снег (idyot sneg)</span> <span class="id">— salju</span></p>
+        <p><span class="ru">ветрено (vetreno)</span> <span class="id">— berangin</span></p>
+        <p><span class="ru">облачно (oblachno)</span> <span class="id">— mendung</span></p>
+        <p><span class="ru">солнце (solntse)</span> <span class="id">— matahari</span></p>
+        <div class="card-actions">
+          <button class="card-action-btn" data-flashcard="cuaca">Kartu Saku</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3>&#128188; Profesi</h3>
+        <p><span class="ru">врач (vrach)</span> <span class="id">— dokter</span></p>
+        <p><span class="ru">учитель (uchitel')</span> <span class="id">— guru</span></p>
+        <p><span class="ru">инженер (inzhener)</span> <span class="id">— insinyur</span></p>
+        <p><span class="ru">полицейский (politseyskiy)</span> <span class="id">— polisi</span></p>
+        <p><span class="ru">художник (khudozhnik)</span> <span class="id">— seniman</span></p>
+        <p><span class="ru">журналист (zhurnalist)</span> <span class="id">— jurnalis</span></p>
+        <p><span class="ru">программист (programmist)</span> <span class="id">— programmer</span></p>
+        <p><span class="ru">повар (povar)</span> <span class="id">— koki</span></p>
+        <div class="card-actions">
+          <button class="card-action-btn" data-flashcard="profesi">Kartu Saku</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3>&#128522; Emosi</h3>
+        <p><span class="ru">счастливый (schastlivyy)</span> <span class="id">— senang</span></p>
+        <p><span class="ru">грустный (grustnyy)</span> <span class="id">— sedih</span></p>
+        <p><span class="ru">уставший (ustavshiy)</span> <span class="id">— lelah</span></p>
+        <p><span class="ru">сердитый (serdit)</span> <span class="id">— marah</span></p>
+        <p><span class="ru">напуганный (napugannyy)</span> <span class="id">— takut</span></p>
+        <p><span class="ru">удивлённый (udivlyonnyy)</span> <span class="id">— terkejut</span></p>
+        <p><span class="ru">спокойный (spokoynyy)</span> <span class="id">— tenang</span></p>
+        <p><span class="ru">восторженный (vorstorzhennyy)</span> <span class="id">— antusias</span></p>
+        <div class="card-actions">
+          <button class="card-action-btn" data-flashcard="emosi">Kartu Saku</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3>&#9201; Waktu</h3>
+        <p><span class="ru">утро (utro)</span> <span class="id">— pagi</span></p>
+        <p><span class="ru">день (den')</span> <span class="id">— siang</span></p>
+        <p><span class="ru">вечер (vecher)</span> <span class="id">— sore/malam</span></p>
+        <p><span class="ru">ноч' (noch')</span> <span class="id">— malam (waktu tidur)</span></p>
+        <p><span class="ru">сегодня (segodnya)</span> <span class="id">— hari ini</span></p>
+        <p><span class="ru">завтра (zavtra)</span> <span class="id">— besok</span></p>
+        <p><span class="ru">вчера (vchera)</span> <span class="id">— kemarin</span></p>
+        <p><span class="ru">сейчас (seychas)</span> <span class="id">— sekarang</span></p>
+        <div class="card-actions">
+          <button class="card-action-btn" data-flashcard="waktu">Kartu Saku</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RECOMMENDATIONS ===== -->
+<section id="rekomendasi">
+  <div class="container">
+    <h2>&#128640; Rekomendasi Belajar Lebih Lanjut</h2>
+
+    <div class="rec-card">
+      <h3>&#128241; Aplikasi Mobile</h3>
+      <p><a href="https://www.duolingo.com" target="_blank">Duolingo</a> — Gratis, gamifikasi, cocok untuk pemula mutlak.</p>
+      <p><a href="https://www.babbel.com" target="_blank">Babbel</a> — Kursus terstruktur dengan fokus percakapan nyata.</p>
+      <p><a href="https://www.memrise.com" target="_blank">Memrise</a> — Belajar kosakata dengan video penutur asli.</p>
+      <p><a href="https://www.mosalingua.com" target="_blank">MosaLingua</a> — Sistem pengulangan terjadwal (SRS) yang efektif.</p>
+    </div>
+
+    <div class="rec-card">
+      <h3>&#127760; Situs Web Gratis</h3>
+      <p><a href="https://www.russianforfree.com" target="_blank">Russian for Free</a> — Kursus bahasa Rusia gratis dengan latihan interaktif.</p>
+      <p><a href="https://www.russianlessons.net" target="_blank">Russian Lessons</a> — Pelajaran tata bahasa dan kosakata.</p>
+      <p><a href="https://learnrussian.rt.com" target="_blank">Learn Russian RT</a> — Kursus lengkap dari Russia Today.</p>
+      <p><a href="https://www.multitran.com" target="_blank">Multitran</a> — Kamus Rusia-Indonesia yang komprehensif.</p>
+    </div>
+
+    <div class="rec-card">
+      <h3>&#127916; YouTube</h3>
+      <p><a href="https://www.youtube.com/@RussianWithMax" target="_blank">Russian With Max</a> — Video pembelajaran bahasa Rusia untuk pemula.</p>
+      <p><a href="https://www.youtube.com/@RealRussianClub" target="_blank">Real Russian Club</a> — Pelajaran tata bahasa yang jelas.</p>
+      <p><a href="https://www.youtube.com/@BeFluentRussian" target="_blank">Be Fluent in Russian</a> — Video seru dan interaktif.</p>
+      <p><a href="https://www.youtube.com/@RussianProgress" target="_blank">Russian Progress</a> — Kursus lengkap dari A1 hingga B2.</p>
+    </div>
+
+    <div class="rec-card">
+      <h3>&#128214; Buku Rekomendasi для Pemula</h3>
+      <p><strong>Поехали!</strong> (A1–B1) — Buku teks standar untuk kursus bahasa Rusia.</p>
+      <p><strong>Русский язык для всех</strong> — Latihan tata bahasa bertahap.</p>
+      <p><strong>Russian Short Stories for Beginners</strong> by Olly Richards — Cerita pendek untuk melatih reading.</p>
+      <p><strong>Голоса</strong> (A1–A2) — Kursus terstruktur dengan audio.</p>
+    </div>
+
+    <div class="rec-card">
+      <h3>&#127911; Podcast</h3>
+      <p><a href="https://www.coffeebreaklanguages.com/coffee-break-russian/" target="_blank">Coffee Break Russian</a> — Pelajaran singkat 15–20 menit, cocok untuk pemula.</p>
+      <p><a href="https://slowrussianpodcast.com" target="_blank">Slow Russian</a> — Podcast dengan tempo lambat untuk belajar.</p>
+      <p><a href="https://www.russianprogress.com/podcast" target="_blank">Russian Progress Podcast</a> — Berita dan cerita dengan tempo lambat.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <p>Dibuat untuk pembelajaran bahasa Rusia dasar — <span>&#9829;</span> Удачи!</p>
+    <p style="margin-top:6px;font-style:italic;">&ldquo;Язык — это окно в мир.&rdquo;</p>
+  </div>
+</footer>
+
+<!-- ===== MODALS ===== -->
+<div class="modal" id="quizModal">
+  <div class="modal-content"></div>
+</div>
+<div class="modal" id="flashcardModal">
+  <div class="modal-content"></div>
+</div>
+<div class="modal" id="settingsModal">
+  <div class="modal-content"></div>
+</div>
+
+<!-- ===== SCRIPTS ===== -->
+<script src="modules/StorageManager.js"></script>
+<script src="modules/UIManager.js"></script>
+<script src="modules/AudioManager.js"></script>
+<script src="modules/QuizEngine.js"></script>
+<script src="modules/FlashcardManager.js"></script>
+<script src="modules/ProgressTracker.js"></script>
+<script src="modules/AnimationController.js"></script>
+<script src="data-ru/content.js"></script>
+<script src="app-ru.js"></script>
+
+</body>
+</html>
