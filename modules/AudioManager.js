@@ -1,4 +1,4 @@
-/**
+﻿/**
  * AudioManager.js
  * Handles Text-to-Speech and audio playback for French pronunciation
  */

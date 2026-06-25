@@ -1,4 +1,4 @@
-/**
+﻿/**
  * AnimationController.js
  * Handles scroll animations, transitions, and Intersection Observer
  */

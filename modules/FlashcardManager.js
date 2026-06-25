@@ -1,4 +1,4 @@
-/**
+﻿/**
  * FlashcardManager.js
  * Handles flashcard system with category filter and spaced repetition
  */
@@ -155,7 +155,7 @@ class FlashcardManager {
               <p class="flashcard-lang">${this.getLanguageLabel()}</p>
               <p class="flashcard-text">${this.getCardContent(card, 'front')}</p>
               <button class="btn-icon btn-speak" onclick="event.stopPropagation(); app.audio.speak('${this.getCardContent(card, 'front').replace(/'/g, "\\'")}')">
-                &#128264;
+                🔈
               </button>
             </div>
             <div class="flashcard-back">
@@ -169,24 +169,24 @@ class FlashcardManager {
       </div>
       <div class="flashcard-actions">
         <button class="btn btn-flashcard btn-hard" onclick="app.flashcardManager.rateCard('hard')">
-          &#128532; Belum Tahu
+          😔 Belum Tahu
         </button>
         <button class="btn btn-flashcard btn-ok" onclick="app.flashcardManager.rateCard('ok')">
-          &#128528; Masih Ingat
+          😐 Masih Ingat
         </button>
         <button class="btn btn-flashcard btn-easy" onclick="app.flashcardManager.rateCard('easy')">
-          &#128513; Mudah
+          😁 Mudah
         </button>
       </div>
       <div class="flashcard-nav">
         <button class="btn btn-sm btn-secondary" onclick="app.flashcardManager.prevCard()" ${this.currentIndex === 0 ? 'disabled' : ''}>
-          &#8592; Sebelumnya
+          ← Sebelumnya
         </button>
         <button class="btn btn-sm btn-secondary" onclick="app.ui.closeModal('flashcardModal')">
           Tutup
         </button>
         <button class="btn btn-sm btn-secondary" onclick="app.flashcardManager.nextCard()" ${this.currentIndex >= this.currentDeck.length - 1 ? 'disabled' : ''}>
-          Selanjutnya &#8594;
+          Selanjutnya →
         </button>
       </div>
     `;
@@ -376,3 +376,4 @@ class FlashcardManager {
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = FlashcardManager;
 }
+

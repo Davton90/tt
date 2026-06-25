@@ -1,4 +1,4 @@
-/**
+﻿/**
  * UIManager.js
  * Handles modals, toasts, dark mode, and other UI components
  */
@@ -18,7 +18,20 @@ class UIManager {
 
   // ========== DARK MODE ==========
   initDarkMode() {
-    const isDark = this.storage.get('settings.darkMode');
+    // Read from both sources, prefer StorageManager
+    let isDark = this.storage.get('settings.darkMode');
+    const standaloneDark = localStorage.getItem('darkMode');
+
+    // Sync: if standalone key exists and StorageManager doesn't, use standalone
+    if (isDark === null && standaloneDark !== null) {
+      isDark = standaloneDark === 'true';
+      this.storage.set('settings.darkMode', isDark);
+    }
+    // Sync: if StorageManager exists, update standalone key
+    if (isDark !== null) {
+      localStorage.setItem('darkMode', isDark);
+    }
+
     if (isDark) {
       document.documentElement.classList.add('dark');
     }
@@ -34,6 +47,7 @@ class UIManager {
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       if (prefersDark) {
         this.storage.set('settings.darkMode', true);
+        localStorage.setItem('darkMode', true);
         document.documentElement.classList.add('dark');
       }
     }
@@ -42,6 +56,7 @@ class UIManager {
   toggleDarkMode() {
     const isDark = document.documentElement.classList.toggle('dark');
     this.storage.set('settings.darkMode', isDark);
+    localStorage.setItem('darkMode', isDark);
     const toggle = document.getElementById('darkModeToggle');
     if (toggle) toggle.checked = isDark;
   }
@@ -63,12 +78,12 @@ class UIManager {
     toast.className = `toast toast-${type}`;
 
     const icons = {
-      success: '&#10004;',
-      error: '&#10008;',
-      warning: '&#9888;',
-      info: '&#8505;',
-      xp: '&#11088;',
-      achievement: '&#127942;'
+      success: '✔',
+      error: '✘',
+      warning: '⚠',
+      info: 'ℹ',
+      xp: '⭐',
+      achievement: '🏆'
     };
 
     toast.innerHTML = `
@@ -244,3 +259,4 @@ class UIManager {
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = UIManager;
 }
+

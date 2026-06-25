@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ProgressTracker.js
  * Handles XP, levels, achievements, streaks, and progress dashboard
  */
@@ -118,31 +118,31 @@ class ProgressTracker {
         </div>
 
         <div class="dashboard-card">
-          <h4>&#128293; Streak Belajar</h4>
+          <h4>🔥 Streak Belajar</h4>
           <p class="stat-number">${stats.streak}</p>
           <p class="stat-label">hari berturut-turut</p>
         </div>
 
         <div class="dashboard-card">
-          <h4>&#128218; Kosakata Dipelajari</h4>
+          <h4>📚 Kosakata Dipelajari</h4>
           <p class="stat-number">${stats.wordsLearned}</p>
           <p class="stat-label">kata</p>
         </div>
 
         <div class="dashboard-card">
-          <h4>&#128220; Quiz Diselesaikan</h4>
+          <h4>📜 Quiz Diselesaikan</h4>
           <p class="stat-number">${stats.quizzesTaken}</p>
           <p class="stat-label">quiz | Rata-rata: ${stats.averageScore}%</p>
         </div>
 
         <div class="dashboard-card">
-          <h4>&#127942; Achievements</h4>
+          <h4>🏆 Achievements</h4>
           <p class="stat-number">${stats.achievements} / ${stats.totalAchievements}</p>
           <p class="stat-label">terbuka</p>
         </div>
 
         <div class="dashboard-card">
-          <h4>&#128204; Flashcard</h4>
+          <h4>📌 Flashcard</h4>
           <p class="stat-number">${stats.flashcardsReviewed}</p>
           <p class="stat-label">kartu direview</p>
         </div>
@@ -266,3 +266,4 @@ class ProgressTracker {
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = ProgressTracker;
 }
+

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * QuizEngine.js
  * Handles quiz generation, scoring, and quiz UI
  */
@@ -152,7 +152,7 @@ class QuizEngine {
     modal.querySelector('.modal-content').innerHTML = `
       <div class="quiz-results">
         <h2>${passed ? 'Luar Biasa!' : 'Terus Semangat!'}</h2>
-        <div class="quiz-result-icon">${passed ? '&#127942;' : '&#128170;'}</div>
+        <div class="quiz-result-icon">${passed ? '🏆' : '💪'}</div>
         <div class="quiz-result-score">${percentage}%</div>
         <p class="quiz-result-detail">${this.score} poin dari ${this.currentQuiz.totalQuestions * 10}</p>
         <p class="quiz-result-xp">+${this.score} XP</p>
@@ -259,3 +259,4 @@ class QuizEngine {
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = QuizEngine;
 }
+

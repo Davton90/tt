@@ -37,7 +37,7 @@ class SpanishLearningApp {
 
   // ========== NAVIGATION ==========
   setupNavigation() {
-    document.querySelectorAll('nav a').forEach(link => {
+    document.querySelectorAll('nav:not(.sidebar-nav) a[href^="#"]').forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
         const targetId = link.getAttribute('href').substring(1);
@@ -198,11 +198,13 @@ class SpanishLearningApp {
       voiceSpeed: parseFloat(document.getElementById('settingSpeed').value)
     });
 
-    if (document.getElementById('settingDarkMode').checked) {
+    const isDark = document.getElementById('settingDarkMode').checked;
+    if (isDark) {
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
     }
+    localStorage.setItem('darkMode', isDark);
 
     this.ui.showToast('Pengaturan disimpan!', 'success');
     this.ui.closeModal('settingsModal');

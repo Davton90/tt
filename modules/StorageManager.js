@@ -1,4 +1,4 @@
-/**
+﻿/**
  * StorageManager.js
  * Handles all LocalStorage operations with error handling and data validation
  */
