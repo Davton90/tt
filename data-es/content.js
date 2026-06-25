@@ -853,8 +853,7 @@
       { es: 'la integridad', id: 'Integritas' }, { es: 'la compasion', id: 'Belas kasih' },
       { es: 'la determinacion', id: 'Determinasi' }, { es: 'la imaginacion', id: 'Imajinasi' },
       { es: 'la creatividad', id: 'Kreativitas' }, { es: 'la sabiduria', id: 'Kebijaksanaan' }
-    ]
-  },
+    ],
   quizzes: {
     colors: {
       title: 'Warna dalam Bahasa Spanyol',

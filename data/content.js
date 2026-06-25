@@ -81,7 +81,7 @@
       { fr: 'a droite', id: 'Ke kanan' }, { fr: 'a gauche', id: 'Ke kiri' },
       { fr: "l'hopital", id: 'Rumah sakit' }, { fr: 'la bibliotheque', id: 'Perpustakaan' },
       { fr: 'le restaurant', id: 'Restoran' }, { fr: 'la gare', id: 'Stasiun' },
-      { fr: 'l'hotel', id: 'Hotel' }, { fr: 'la banque', id: 'Bank' },
+      { fr: "l'hotel", id: 'Hotel' }, { fr: 'la banque', id: 'Bank' },
       { fr: 'le parc', id: 'Taman' }, { fr: 'le marche', id: 'Pasar' },
       { fr: "l'eglise", id: 'Gereja' }, { fr: 'le cinema', id: 'Bioskop' },
       { fr: 'la pharmacie', id: 'Apotek' }, { fr: 'le bureau de poste', id: 'Kantor pos' },
@@ -95,8 +95,8 @@
       { fr: 'le chauffeur', id: 'Sopir' }, { fr: 'le vendeur', id: 'Penjual' },
       { fr: 'le serveur', id: 'Pelayan' }, { fr: 'le facteur', id: 'Tukang pos' },
       { fr: 'le militaire', id: 'Tentara' }, { fr: 'le pompier', id: 'Pemadam kebakaran' },
-      { fr: 'l'avocat', id: 'Pengacara' }, { fr: 'le fermier', id: 'Petani' },
-      { fr: 'le musicien', id: 'Musisi' }, { fr: 'l'acteur', id: 'Aktor' },
+      { fr: "l'avocat", id: 'Pengacara' }, { fr: 'le fermier', id: 'Petani' },
+      { fr: 'le musicien', id: 'Musisi' }, { fr: "l'acteur", id: 'Aktor' },
       { fr: 'le metteur en scene', id: 'Sutradara' }, { fr: 'le traducteur', id: 'Penerjemah' }
     ],
     emosi: [
@@ -154,12 +154,12 @@
       { fr: 'les chaussures', id: 'Sepatu' }, { fr: 'les bottes', id: 'Boots' },
       { fr: 'les sandales', id: 'Sandal' }, { fr: 'les chaussettes', id: 'Kaos kaki' },
       { fr: 'le chapeau', id: 'Topi' }, { fr: 'les lunettes', id: 'Kacamata' },
-      { fr: 'l'echarpe', id: 'Syal' }, { fr: 'les gants', id: 'Sarung tangan' },
+      { fr: "l'echarpe", id: 'Syal' }, { fr: 'les gants', id: 'Sarung tangan' },
       { fr: 'le bonnet', id: 'Topi hangat' }, { fr: 'le maillot', id: 'Kaos olahraga' },
       { fr: 'le short', id: 'Celana pendek' }, { fr: 'le bikini', id: 'Bikini' },
       { fr: 'le pyjama', id: 'Piama' }, { fr: 'la culotte', id: 'Celana dalam' },
       { fr: 'le soutien-gorge', id: 'Bra' }, { fr: 'la robe de ceremonie', id: 'Gaun pesta' },
-      { fr: 'l'uniforme', id: 'Seragam' }, { fr: 'la tenue de sport', id: 'Pakaian olahraga' },
+      { fr: "l'uniforme", id: 'Seragam' }, { fr: 'la tenue de sport', id: 'Pakaian olahraga' },
       { fr: 'le costume de bain', id: 'Baju renang' }, { fr: 'les baskets', id: 'Sneakers' },
       { fr: 'les escarpins', id: 'High heels' }, { fr: 'les mocassins', id: 'Moccasins' },
       { fr: 'le jean', id: 'Jeans' }, { fr: 'le cardigan', id: 'Cardigan' },
@@ -182,7 +182,7 @@
       { fr: 'la rampe', id: 'Pegangan tangga' }, { fr: 'la brique', id: 'Bata' },
       { fr: 'le toit', id: 'Atap' }, { fr: 'la cheminee', id: 'Perapian' },
       { fr: 'la gouttiere', id: 'Talang air' }, { fr: 'la barriere', id: 'Pagar' },
-      { fr: "l'immeuble", id: 'Gedung apartemen' }, { fr: 'l'appartement', id: 'Apartemen' },
+      { fr: "l'immeuble", id: 'Gedung apartemen' }, { fr: "l'appartement", id: 'Apartemen' },
       { fr: 'la cave a vin', id: 'Ruang penyimpanan anggur' }, { fr: 'le buanderie', id: 'Ruang cuci' },
       { fr: 'la buanderie', id: 'Ruang cuci' }, { fr: 'le cellier', id: 'Ruang penyimpanan' },
       { fr: 'la chambre d\'amis', id: 'Kamar tamu' }, { fr: 'le bureau', id: 'Ruang kerja' },
@@ -193,14 +193,14 @@
       { fr: "l'armoire", id: 'Lemari' }, { fr: 'le canape', id: 'Sofa' },
       { fr: 'la table', id: 'Meja' }, { fr: 'la chaise', id: 'Kursi' },
       { fr: 'le lit', id: 'Tempat tidur' }, { fr: 'le matelas', id: 'Matras' },
-      { fr: 'l'oreiller', id: 'Bantal' }, { fr: 'la couverture', id: 'Selimut' },
+      { fr: "l'oreiller", id: 'Bantal' }, { fr: 'la couverture', id: 'Selimut' },
       { fr: 'le drap', id: 'Sprei' }, { fr: 'le miroir', id: 'Cermin' },
       { fr: "l'etagere", id: 'Rak' }, { fr: 'la commode', id: 'Laci' }
     ],
     nature: [
       { fr: 'le soleil', id: 'Matahari' }, { fr: 'la lune', id: 'Bulan' },
       { fr: 'les etoiles', id: 'Bintang' }, { fr: 'le ciel', id: 'Langit' },
-      { fr: 'la mer', id: 'Laut' }, { fr: 'l'ocean', id: 'Samudra' },
+      { fr: 'la mer', id: 'Laut' }, { fr: "l'ocean", id: 'Samudra' },
       { fr: 'la riviere', id: 'Sungai' }, { fr: 'le lac', id: 'Danau' },
       { fr: 'la montagne', id: 'Gunung' }, { fr: 'la colline', id: 'Bukit' },
       { fr: 'la vallee', id: 'Lembah' }, { fr: 'le desert', id: 'Gurun' },
@@ -219,22 +219,22 @@
     ],
     animalsDomestic: [
       { fr: 'le chien', id: 'Anjing' }, { fr: 'le chat', id: 'Kucing' },
-      { fr: 'le lapin', id: 'Kelinci' }, { fr: 'l'oiseau', id: 'Burung' },
-      { fr: 'le poisson rouge', id: 'Ikan mas' }, { fr: 'l'hamster', id: 'Hamster' },
+      { fr: 'le lapin', id: 'Kelinci' }, { fr: "l'oiseau", id: 'Burung' },
+      { fr: 'le poisson rouge', id: 'Ikan mas' }, { fr: "l'hamster", id: 'Hamster' },
       { fr: 'la tortue', id: 'Kura-kura' }, { fr: 'le cheval', id: 'Kuda' },
       { fr: 'la poule', id: 'Ayam betina' }, { fr: 'le coq', id: 'Ayam jantan' },
       { fr: 'le canard', id: 'Bebek' }, { fr: 'la chèvre', id: 'Kambing' },
       { fr: 'le mouton', id: 'Domba' }, { fr: 'le cochon', id: 'Babi' },
-      { fr: 'l'ane', id: 'Keledai' }
+      { fr: "l'ane", id: 'Keledai' }
     ],
     animalsWild: [
       { fr: 'le lion', id: 'Singa' }, { fr: 'le tigre', id: 'Harimau' },
-      { fr: 'l'elephant', id: 'Gajah' }, { fr: 'la girafe', id: 'Jerapah' },
+      { fr: "l'elephant", id: 'Gajah' }, { fr: 'la girafe', id: 'Jerapah' },
       { fr: 'le zebre', id: 'Zebra' }, { fr: 'le gorille', id: 'Gorila' },
-      { fr: 'l'ours', id: 'Beruang' }, { fr: 'le loup', id: 'Serigala' },
+      { fr: "l'ours", id: 'Beruang' }, { fr: 'le loup', id: 'Serigala' },
       { fr: 'le renard', id: 'Rubah' }, { fr: 'le cerf', id: 'Rusa' },
       { fr: 'le serpent', id: 'Ular' }, { fr: 'le crocodile', id: 'Buaya' },
-      { fr: 'l'hippopotame', id: 'Kudanil' }, { fr: 'la rhinoceros', id: 'Badak' },
+      { fr: "l'hippopotame", id: 'Kudanil' }, { fr: 'la rhinoceros', id: 'Badak' },
       { fr: 'le singe', id: 'Monyet' }, { fr: 'le kangourou', id: 'Kanguru' },
       { fr: 'le koala', id: 'Koala' }, { fr: 'la hyene', id: 'Hiena' },
       { fr: 'la panthere', id: 'Macan tutul' }, { fr: 'le guepard', id: 'Cheetah' },
@@ -245,9 +245,9 @@
     animalsSea: [
       { fr: 'la baleine', id: 'Paus' }, { fr: 'le dauphin', id: 'Lumba-lumba' },
       { fr: 'le requin', id: 'Hiu' }, { fr: 'la tortue de mer', id: 'Penyu' },
-      { fr: 'le phoque', id: 'Anjing laut' }, { fr: 'l'otarie', id: 'Singa laut' },
+      { fr: 'le phoque', id: 'Anjing laut' }, { fr: "l'otarie", id: 'Singa laut' },
       { fr: 'le crabe', id: 'Kepiting' }, { fr: 'la crevette', id: 'Udang' },
-      { fr: 'l'huître', id: 'Tiram' }, { fr: 'la moule', id: 'Kerang' }
+      { fr: "l'huître", id: 'Tiram' }, { fr: 'la moule', id: 'Kerang' }
     ],
     insects: [
       { fr: "l'abeille", id: 'Lebah' }, { fr: 'la fourmi', id: 'Semut' },
@@ -256,7 +256,7 @@
       { fr: 'la mouche', id: 'Lalat' }, { fr: 'le moustique', id: 'Nyamuk' },
       { fr: 'le papillon de nuit', id: 'Ngengat' }, { fr: 'la sauterelle', id: 'Belalang' },
       { fr: 'le grillon', id: 'Jangkrik' }, { fr: 'le homard', id: 'Lobster' },
-      { fr: 'l'araignee', id: 'Laba-laba' }, { fr: 'le scorpion', id: 'Kalajengking' },
+      { fr: "l'araignee", id: 'Laba-laba' }, { fr: 'le scorpion', id: 'Kalajengking' },
       { fr: 'la punaise', id: 'Kutu busuk' }
     ],
     foodExtended: [
@@ -847,8 +847,7 @@
       { fr: 'l\'integrite', id: 'Integritas' }, { fr: 'la compassion', id: 'Belas kasih' },
       { fr: 'la determination', id: 'Determinasi' }, { fr: 'l\'imagination', id: 'Imajinasi' },
       { fr: 'la creativite', id: 'Kreativitas' }, { fr: 'la sagesse', id: 'Kebijaksanaan' }
-    ]
-  },
+    ],
   quizzes: {
     colors: {
       title: 'Warna dalam Bahasa Prancis',
@@ -1145,3 +1144,4 @@
     { id: 'full_spectrum', title: 'Full Spectrum', description: 'Selesaikan semua kategori kuis', icon: '🌈', requirement: 'Semua 15 kategori' }
   ]
 };
+
